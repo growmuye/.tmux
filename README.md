@@ -29,8 +29,8 @@ tmux source-file ~/.tmux.conf
 ## 状态栏
 
 状态栏左侧显示 CPU/内存利用率 + 时间，颜色根据利用率动态变化：
-- < 60%: green
-- < 85%: yellow
-- >= 85%: red
+- < 60%: green (`#00FF00`)
+- < 85%: yellow (`#FFFF00`)
+- >= 85%: red (`#FF0000`)
 
 资源采集由 `scripts/resource-usage.sh` 实现（macOS 原生命令 `top` + `vm_stat`）。
