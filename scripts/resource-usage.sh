@@ -16,11 +16,11 @@ fi
 color_code_for_rate() {
     rate_int=$1
     if [ "$rate_int" -ge 8500 ]; then
-        echo "#[bg=colour1,fg=colour255]"
+        echo "#[bg=colour204,fg=colour235]"
     elif [ "$rate_int" -ge 6000 ]; then
-        echo "#[bg=colour3,fg=colour255]"
+        echo "#[bg=colour208,fg=colour235]"
     else
-        echo "#[bg=colour10,fg=colour255]"
+        echo "#[bg=colour119,fg=colour235]"
     fi
 }
 
@@ -90,7 +90,7 @@ format_cpu_segment() {
     is_narrow=$3
 
     color=$(color_code_for_rate "$rate_int")
-    reset_color="#[bg=colour10,fg=colour255]"
+    reset_color="#[bg=colour235,fg=colour250]"
     rate_str=$(awk "BEGIN { printf \"%3.1f\", $rate_int / 100.0 }")
 
     if [ "$is_narrow" -eq 1 ]; then
@@ -109,7 +109,7 @@ format_mem_segment() {
     fi
 
     color=$(color_code_for_rate "$rate_int")
-    reset_color="#[bg=colour10,fg=colour255]"
+    reset_color="#[bg=colour235,fg=colour250]"
 
     total_gb=$(awk "BEGIN { printf \"%.1f\", $total_bytes / 1073741824.0 }")
     in_use_gb=$(awk "BEGIN { printf \"%.1f\", $total_bytes / 1073741824.0 * $rate_int / 10000.0 }")
