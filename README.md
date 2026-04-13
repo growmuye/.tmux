@@ -13,6 +13,14 @@ git clone https://github.com/growmuye/.tmux.git ~/.tmux
 ln -s ~/.tmux/tmux.conf ~/.tmux.conf
 ```
 
+### 开发环境
+
+如果你在本地其他目录修改了配置或脚本，需要同步到 `~/.tmux`：
+
+```bash
+cd ~/.tmux && git pull
+```
+
 ## Usage
 
 重新进入 tmux 或者重新加载配置：

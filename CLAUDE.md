@@ -23,9 +23,9 @@ tmux source-file ~/.tmux.conf
   - `resource-usage.sh` - macOS 资源采集脚本（替代 Linux 的 C 工具）
     - CPU：`top -l 1` 读取累计平均利用率
     - 内存：`vm_stat` + `sysctl hw.memsize` 实时计算
-  - `status-left.sh` - 状态栏左侧（资源栏 + 时间栏拼接）
-  - `status-right.sh` - 状态栏右侧（主机名 + session）
-  - `helpers.sh` - 辅助函数
+  - `status-left.sh` - 状态栏左侧（主机名 + session 名称）
+  - `status-right.sh` - 状态栏右侧（资源栏 + 时间栏拼接）
+  - `helpers.sh` - 辅助函数（`get_width` 获取窗口宽度）
 
 ### 核心脚本
 
@@ -37,10 +37,10 @@ tmux source-file ~/.tmux.conf
 
 ### 测试策略
 
-无需编译测试，直接观察状态栏输出：
+无需编译测试，直接运行脚本观察输出：
 ```bash
-~/.tmux/scripts/resource-usage.sh      # 宽屏模式
-~/.tmux/scripts/resource-usage.sh narrow  # 窄屏模式
+~/.tmux/scripts/resource-usage.sh        # 宽屏模式
+~/.tmux/scripts/resource-usage.sh narrow # 窄屏模式
 ```
 
 ### 显示逻辑
@@ -54,11 +54,9 @@ tmux source-file ~/.tmux.conf
 ### 输出格式
 
 **宽屏模式**（>200 字符）：
-```
- 📊CPU% ㎇used/total  Mon 2026/04/06 09:00:00 
-```
+- 左侧：` hostname tmux:session_name `
+- 右侧：` 📊CPU% ㎇used/total  Mon 2026/04/06 09:00:00 `
 
 **窄屏模式**（≤200 字符）：
-```
-CPU%|used/total 04/06 09:00:00 
-```
+- 左侧：` hostname session_name `
+- 右侧：` CPU%|used/total 04/06 09:00:00 `
