@@ -6,21 +6,16 @@
 # CPU：top -l 1 (即时返回，返回自启动以来的平均 CPU 利用率)
 # 内存：vm_stat + sysctl hw.memsize (实时)
 
-NARROW=0
-if [ "${1:-}" = "narrow" ]; then
-    NARROW=1
-fi
-
 # ==================== 颜色函数 ====================
 
 color_code_for_rate() {
     rate_int=$1
     if [ "$rate_int" -ge 8500 ]; then
-        echo "#[bg=colour204,fg=colour235]"
+        echo "#[fg=colour204]"
     elif [ "$rate_int" -ge 6000 ]; then
-        echo "#[bg=colour208,fg=colour235]"
+        echo "#[fg=colour208]"
     else
-        echo "#[bg=colour119,fg=colour235]"
+        echo "#[fg=colour119]"
     fi
 }
 
@@ -87,17 +82,12 @@ get_mem_data() {
 format_cpu_segment() {
     emoji=$1
     rate_int=$2
-    is_narrow=$3
 
     color=$(color_code_for_rate "$rate_int")
     reset_color="#[bg=colour235,fg=colour250]"
-    rate_str=$(awk "BEGIN { printf \"%3.1f\", $rate_int / 100.0 }")
+    rate_str=$(awk "BEGIN { printf \"%d\", $rate_int / 100.0 }")
 
-    if [ "$is_narrow" -eq 1 ]; then
-        printf '%s%s%s%%|%s' "$color" "$emoji" "$rate_str" "$reset_color"
-    else
-        printf '%s %s%s%s%%%s' "$reset_color" "$color" "$emoji" "$rate_str" "$reset_color"
-    fi
+    printf '%s%s%s%%|%s' "$color" "$emoji" "$rate_str" "$reset_color"
 }
 
 format_mem_segment() {
@@ -111,23 +101,17 @@ format_mem_segment() {
     color=$(color_code_for_rate "$rate_int")
     reset_color="#[bg=colour235,fg=colour250]"
 
-    total_gb=$(awk "BEGIN { printf \"%.1f\", $total_bytes / 1073741824.0 }")
-    in_use_gb=$(awk "BEGIN { printf \"%.1f\", $total_bytes / 1073741824.0 * $rate_int / 10000.0 }")
+    total_gb=$(awk "BEGIN { printf \"%.0f\", $total_bytes / 1073741824.0 }")
+    in_use_gb=$(awk "BEGIN { printf \"%.0f\", $total_bytes / 1073741824.0 * $rate_int / 10000.0 }")
 
-    if [ "$NARROW" -eq 1 ]; then
-        printf '%s㎇%s/%s' "$color" "$in_use_gb" "$total_gb"
-    else
-        printf '%s %s㎇%s/%s%s ' "$reset_color" "$color" "$in_use_gb" "$total_gb" "$reset_color"
-    fi
+    printf '%s🧱%s/%s' "$color" "$in_use_gb" "$total_gb"
 }
 
 # ==================== 主流程 ====================
 
 # 1. CPU 采集
 cpu_data=$(get_cpu_data)
-cpu_busy_int=$cpu_data
-core_count=$(sysctl -n hw.ncpu 2>/dev/null || echo 1)
-cpu_busy_int=${cpu_busy_int:-0}
+cpu_busy_int=${cpu_data:-0}
 
 # 2. 内存采集
 mem_data=$(get_mem_data)
@@ -139,7 +123,7 @@ mem_total_bytes=${mem_total_bytes:-0}
 # 3. 格式化输出
 output=""
 
-cpu_segment=$(format_cpu_segment "📊" "$cpu_busy_int" "$NARROW")
+cpu_segment=$(format_cpu_segment "⚡" "$cpu_busy_int")
 output="${output}${cpu_segment}"
 
 mem_segment=$(format_mem_segment "$mem_rate_int" "$mem_total_bytes")

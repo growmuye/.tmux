@@ -15,15 +15,15 @@ ln -s ~/.tmux/tmux.conf ~/.tmux.conf
 
 ### 开发环境
 
-如果你在本地其他目录修改了配置或脚本，需要同步到 `~/.tmux`：
+`~/.tmux.conf` 已软链接到本项目，修改配置后 `tmux source-file ~/.tmux.conf` 即可生效。
+
+`~/.tmux/scripts/` 是独立的 scripts 目录（不是本项目的软链接），在本地其他目录修改了脚本后，需要同步：
 
 ```bash
-cd ~/.tmux && git pull
+cp scripts/*.sh ~/.tmux/scripts/
 ```
 
-## Usage
-
-重新进入 tmux 或者重新加载配置：
+重新加载配置：
 
 ```bash
 tmux source-file ~/.tmux.conf
