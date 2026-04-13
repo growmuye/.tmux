@@ -11,10 +11,7 @@
 ```bash
 git clone https://github.com/nicky-zs/.tmux.git ~/.tmux
 ln -s ~/.tmux/tmux.conf ~/.tmux.conf
-cd ~/.tmux && make
 ```
-
-编译后的二进制文件位于 `bin/resource_usage`，shell 脚本会自动调用它。
 
 ## Usage
 
@@ -24,24 +21,16 @@ cd ~/.tmux && make
 tmux source-file ~/.tmux.conf
 ```
 
-## Development
-
-```bash
-# 编译
-make
-
-# 运行测试（编译 → 运行 → 清理一步完成）
-make test
-
-# 单独运行肉眼观察测试（ANSI 彩色输出，分页显示）
-make view-test
-
-# 清理
-make clean
-```
-
 ## Requirements
 
 - tmux >= 2.0
-- gcc
-- Linux (使用 /proc/stat 和 /proc/meminfo)
+- macOS
+
+## 状态栏
+
+状态栏左侧显示 CPU/内存利用率 + 时间，颜色根据利用率动态变化：
+- < 60%: green
+- < 85%: yellow
+- >= 85%: red
+
+资源采集由 `scripts/resource-usage.sh` 实现（macOS 原生命令 `top` + `vm_stat`）。
