@@ -31,7 +31,7 @@ tmux source-file ~/.tmux.conf
 
 **resource-usage.sh**：
 - 用法：`resource-usage.sh [narrow]`
-- 输出 tmux 格式状态栏字符串（带 `#[bg=#RRGGBB]` 十六进制颜色代码）
+- 输出 tmux 格式状态栏字符串（带 `#[bg=colourX]` 命名颜色代码）
 - CPU 显示 📊 emoji，无单核显示（macOS `top -l 1` 不提供单核数据）
 - 内存显示 ㎇ 符号 + 用量/总量
 
@@ -46,9 +46,10 @@ tmux source-file ~/.tmux.conf
 ### 显示逻辑
 
 状态栏颜色根据利用率动态变化（`color_code_for_rate` 函数）：
-- < 60%: green (`#00FF00`)
-- < 85%: yellow (`#FFFF00`)
-- >= 85%: red (`#FF0000`)
+- < 60%: green (`colour119`)
+- < 85%: yellow (`colour208`)
+- >= 85%: red (`colour204`)
+- 背景统一为 `colour235`
 
 ### 输出格式
 

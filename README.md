@@ -9,7 +9,7 @@
 ## Installation
 
 ```bash
-git clone https://github.com/nicky-zs/.tmux.git ~/.tmux
+git clone https://github.com/growmuye/.tmux.git ~/.tmux
 ln -s ~/.tmux/tmux.conf ~/.tmux.conf
 ```
 
@@ -29,8 +29,9 @@ tmux source-file ~/.tmux.conf
 ## 状态栏
 
 状态栏左侧显示 CPU/内存利用率 + 时间，颜色根据利用率动态变化：
-- < 60%: green (`#00FF00`)
-- < 85%: yellow (`#FFFF00`)
-- >= 85%: red (`#FF0000`)
+- < 60%: green (`colour119`)
+- < 85%: yellow (`colour208`)
+- >= 85%: red (`colour204`)
+- 背景统一为 `colour235`
 
 资源采集由 `scripts/resource-usage.sh` 实现（macOS 原生命令 `top` + `vm_stat`）。
