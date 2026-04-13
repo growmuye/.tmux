@@ -12,7 +12,7 @@ SESSION_ID=$(tmux display-message -p '#{session_id}')
 SESSION_ID="${SESSION_ID#\$}"
 
 if [ "$(get_width)" -gt 200 ]; then
-	echo "$($dir_name/../bin/resource_usage "$SESSION_ID")#[bg=colour6] $(date +'%a %Y/%m/%d %H:%M:%S') "
+	echo "$($dir_name/resource-usage.sh)#[bg=colour6] $(date +'%a %Y/%m/%d %H:%M:%S') "
 else
-	echo "$($dir_name/../bin/resource_usage "$SESSION_ID" narrow)#[bg=colour6] $(date +'%m/%d %H:%M:%S') "
+	echo "$($dir_name/resource-usage.sh narrow)#[bg=colour6] $(date +'%m/%d %H:%M:%S') "
 fi
