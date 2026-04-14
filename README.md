@@ -15,6 +15,8 @@ ln -s ~/.tmux/tmux.conf ~/.tmux.conf
 
 ### 开发环境
 
+> **重要：** 任何 `~/.tmux.conf` 修改后，必须执行 `tmux source-file ~/.tmux.conf` 才会生效。仅修改文件不会自动刷新配置。
+
 `~/.tmux.conf` 已软链接到本项目，修改配置后 `tmux source-file ~/.tmux.conf` 即可生效。
 
 `~/.tmux/scripts/` 是独立的 scripts 目录（不是本项目的软链接），在本地其他目录修改了脚本后，需要同步：

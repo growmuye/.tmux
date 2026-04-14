@@ -11,7 +11,7 @@ macOS tmux 自定义配置和资源监控工具。包含：
 ## 常用命令
 
 ```bash
-# 修改 tmux.conf 后重新加载
+# 修改 tmux.conf 后必须重新加载（仅修改文件不会自动生效）
 tmux source-file ~/.tmux.conf
 
 # 修改 scripts/ 后同步到 ~/.tmux/scripts/（~/.tmux/ 不是该项目的软链接或 git 工作树）
